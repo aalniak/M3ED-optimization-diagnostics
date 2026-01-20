@@ -11,9 +11,9 @@
         .card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
         .card { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); transition: transform 0.2s; }
         .card:hover { transform: translateY(-5px); box-shadow: 0 5px 15px rgba(0,0,0,0.15); }
-        .card h3 { margin: 0 0 10px 0; color: #2c3e50; }
-        .card .description { color: #7f8c8d; font-size: 12px; margin-bottom: 12px; line-height: 1.4; font-style: italic; border-left: 3px solid #3498db; padding-left: 10px; }
-        .card a { color: #3498db; text-decoration: none; font-weight: bold; }
+        .card h3 { margin: 0 0 10px 0; color: #2c3e50; word-wrap: break-word; overflow-wrap: break-word; }
+        .card .description { color: #7f8c8d; font-size: 12px; margin-bottom: 12px; line-height: 1.4; font-style: italic; border-left: 3px solid #3498db; padding-left: 10px; word-wrap: break-word; overflow-wrap: break-word; }
+        .card a { color: #3498db; text-decoration: none; font-weight: bold; word-wrap: break-word; overflow-wrap: break-word; display: inline-block; max-width: 100%; }
         .card a:hover { text-decoration: underline; }
         .card .stat { color: #666; font-size: 14px; margin: 5px 0; }
         .card .stat.rmse { color: #e74c3c; font-weight: bold; font-size: 15px; margin: 8px 0; }
@@ -39,7 +39,7 @@
     <a href="compare.html" class="compare-button">⚖️ Interactive Comparison Tool</a>
     
     <div class="section">
-        <h2>📊 Datasets (42)</h2>
+        <h2>📊 Datasets (43)</h2>
         <div class="card-grid">
 
             <div class="card">
@@ -290,6 +290,16 @@
                 <div class="stat">⏱️ Avg Solver: 6.3ms</div>
                 <div class="stat">📉 Avg Reduction: 2.2%</div>
                 <div class="stat">📏 Avg Depth Factors: 0</div>
+            </div>
+
+            <div class="card">
+                <h3><a href="spot_indoor_stairwell_daac_depth_opt_log_w100.html">spot_indoor_stairwell_daac_depth_opt_log_w100</a></h3>
+                <div class="description">spot_indoor stairwell_daac_depth_opt_log_w100</div>
+                
+                <div class="stat">📈 Frames: 9954</div>
+                <div class="stat">⏱️ Avg Solver: 8.7ms</div>
+                <div class="stat">📉 Avg Reduction: 5.1%</div>
+                <div class="stat">📏 Avg Depth Factors: 73</div>
             </div>
 
             <div class="card">
@@ -888,6 +898,22 @@
                         <td>1.41e+01</td>
                         <td>0</td>
                         <td>79</td>
+                    </tr>
+                    <tr>
+                        <td><a href="spot_indoor_stairwell_daac_depth_opt_log_w100.html">spot_indoor_stairwell_daac_depth_opt_log_w100</a></td>
+                        <td>9954</td>
+                        <td>8.7</td>
+                        <td>6.1</td>
+                        <td>9.15e+03</td>
+                        <td>8.81e+03</td>
+                        <td>5.1%</td>
+                        <td>9.05e+01</td>
+                        <td>6.54e+01</td>
+                        <td>20.2%</td>
+                        <td>1.25e+01</td>
+                        <td>1.63e+01</td>
+                        <td>73</td>
+                        <td>77</td>
                     </tr>
                     <tr>
                         <td><a href="spot_indoor_stairwell_daac_depth_opt_w100.html">spot_indoor_stairwell_daac_depth_opt_w100</a></td>
