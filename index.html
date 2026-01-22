@@ -1,0 +1,1900 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>VINS-Fusion Optimization Dashboard</title>
+    <style>
+        body { font-family: 'Segoe UI', Arial, sans-serif; margin: 0; padding: 20px; background: #f5f5f5; }
+        .container { max-width: 1200px; margin: 0 auto; }
+        h1 { color: #2c3e50; text-align: center; margin-bottom: 10px; }
+        .subtitle { text-align: center; color: #666; margin-bottom: 30px; }
+        .card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
+        .card { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); transition: transform 0.2s; }
+        .card:hover { transform: translateY(-5px); box-shadow: 0 5px 15px rgba(0,0,0,0.15); }
+        .card h3 { margin: 0 0 10px 0; color: #2c3e50; word-wrap: break-word; overflow-wrap: break-word; }
+        .card .description { color: #7f8c8d; font-size: 12px; margin-bottom: 12px; line-height: 1.4; font-style: italic; border-left: 3px solid #3498db; padding-left: 10px; word-wrap: break-word; overflow-wrap: break-word; }
+        .card a { color: #3498db; text-decoration: none; font-weight: bold; word-wrap: break-word; overflow-wrap: break-word; display: inline-block; max-width: 100%; }
+        .card a:hover { text-decoration: underline; }
+        .card .stat { color: #666; font-size: 14px; margin: 5px 0; }
+        .card .stat.rmse { color: #e74c3c; font-weight: bold; font-size: 15px; margin: 8px 0; }
+        .section { margin: 40px 0; }
+        .section h2 { color: #34495e; border-bottom: 2px solid #3498db; padding-bottom: 10px; }
+        .compare-section { background: #e8f4f8; padding: 20px; border-radius: 8px; }
+        .compare-button { display: block; text-align: center; padding: 20px 40px; background: linear-gradient(135deg, #3498db, #2980b9); color: white; text-decoration: none; font-size: 20px; font-weight: bold; border-radius: 10px; margin: 20px auto; max-width: 400px; box-shadow: 0 4px 15px rgba(52,152,219,0.4); transition: all 0.3s; }
+        .compare-button:hover { transform: translateY(-3px); box-shadow: 0 6px 20px rgba(52,152,219,0.5); }
+        .detailed-stats { width: 100%; border-collapse: collapse; font-size: 12px; background: white; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        .detailed-stats th { background: #34495e; color: white; padding: 10px 8px; text-align: left; position: sticky; top: 0; }
+        .detailed-stats td { padding: 8px; border-bottom: 1px solid #eee; font-family: monospace; }
+        .detailed-stats tr:hover { background: #f5f9fc; }
+        .detailed-stats td:first-child { font-family: 'Segoe UI', Arial, sans-serif; font-weight: bold; }
+        .detailed-stats a { color: #3498db; text-decoration: none; }
+        .detailed-stats a:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>🔧 VINS-Fusion Optimization Dashboard</h1>
+    <p class="subtitle">You may compare baselines with variants below!:</p>
+    
+    <a href="compare.html" class="compare-button">⚖️ Interactive Comparison Tool</a>
+    <a href="tables/index.html" class="compare-button" style="background: linear-gradient(135deg, #27ae60, #229954);">📊 RMSE Comparison Tables</a>
+    
+    <div class="section">
+        <h2>📊 Datasets (70)</h2>
+        <div class="card-grid">
+
+            <div class="card">
+                <h3><a href="spot_forest_hard_base.html">spot_forest_hard_base</a></h3>
+                <div class="description">spot_forest hard_base</div>
+                <div class="stat rmse">📐 RMSE: 0.5224</div>
+                <div class="stat">📈 Frames: 12739</div>
+                <div class="stat">⏱️ Avg Solver: 19.2ms</div>
+                <div class="stat">📉 Avg Reduction: 1.3%</div>
+                <div class="stat">📏 Avg Depth Factors: 0</div>
+            </div>
+
+            <div class="card">
+                <h3><a href="spot_forest_hard_daac_depth_opt_log_w100.html">spot_forest_hard_daac_depth_opt_log_w100</a></h3>
+                <div class="description">spot_forest hard_daac_depth_opt_log_w100</div>
+                <div class="stat rmse">📐 RMSE: 0.5505</div>
+                <div class="stat">📈 Frames: 10191</div>
+                <div class="stat">⏱️ Avg Solver: 14.1ms</div>
+                <div class="stat">📉 Avg Reduction: 1.1%</div>
+                <div class="stat">📏 Avg Depth Factors: 193</div>
+            </div>
+
+            <div class="card">
+                <h3><a href="spot_forest_hard_daac_depth_opt_mahalanobis_w100.html">spot_forest_hard_daac_depth_opt_mahalanobis_w100</a></h3>
+                <div class="description">spot_forest hard_daac_depth_opt_mahalanobis_w100</div>
+                <div class="stat rmse">📐 RMSE: 0.5286</div>
+                <div class="stat">📈 Frames: 12739</div>
+                <div class="stat">⏱️ Avg Solver: 21.0ms</div>
+                <div class="stat">📉 Avg Reduction: 1.3%</div>
+                <div class="stat">📏 Avg Depth Factors: 241</div>
+            </div>
+
+            <div class="card">
+                <h3><a href="spot_forest_hard_daac_depth_opt_mahalanobis_w1000.html">spot_forest_hard_daac_depth_opt_mahalanobis_w1000</a></h3>
+                <div class="description">spot_forest hard_daac_depth_opt_mahalanobis_w1000</div>
+                <div class="stat rmse">📐 RMSE: 0.5033</div>
+                <div class="stat">📈 Frames: 12742</div>
+                <div class="stat">⏱️ Avg Solver: 25.2ms</div>
+                <div class="stat">📉 Avg Reduction: 1.4%</div>
+                <div class="stat">📏 Avg Depth Factors: 185</div>
+            </div>
+
+            <div class="card">
+                <h3><a href="spot_forest_hard_daac_depth_opt_mahalanobis_w500.html">spot_forest_hard_daac_depth_opt_mahalanobis_w500</a></h3>
+                <div class="description">spot_forest hard_daac_depth_opt_mahalanobis_w500</div>
+                <div class="stat rmse">📐 RMSE: 0.5026</div>
+                <div class="stat">📈 Frames: 12739</div>
+                <div class="stat">⏱️ Avg Solver: 24.3ms</div>
+                <div class="stat">📉 Avg Reduction: 1.2%</div>
+                <div class="stat">📏 Avg Depth Factors: 217</div>
+            </div>
+
+            <div class="card">
+                <h3><a href="spot_forest_hard_daac_depth_opt_w100.html">spot_forest_hard_daac_depth_opt_w100</a></h3>
+                <div class="description">spot_forest hard_daac_depth_opt_w100</div>
+                <div class="stat rmse">📐 RMSE: 0.5070</div>
+                <div class="stat">📈 Frames: 12739</div>
+                <div class="stat">⏱️ Avg Solver: 21.6ms</div>
+                <div class="stat">📉 Avg Reduction: 1.3%</div>
+                <div class="stat">📏 Avg Depth Factors: 242</div>
+            </div>
+
+            <div class="card">
+                <h3><a href="spot_forest_hard_daac_depth_opt_w1000.html">spot_forest_hard_daac_depth_opt_w1000</a></h3>
+                <div class="description">spot_forest hard_daac_depth_opt_w1000</div>
+                <div class="stat rmse">📐 RMSE: 0.4712</div>
+                <div class="stat">📈 Frames: 12739</div>
+                <div class="stat">⏱️ Avg Solver: 25.3ms</div>
+                <div class="stat">📉 Avg Reduction: 1.5%</div>
+                <div class="stat">📏 Avg Depth Factors: 215</div>
+            </div>
+
+            <div class="card">
+                <h3><a href="spot_forest_hard_daac_depth_opt_w500.html">spot_forest_hard_daac_depth_opt_w500</a></h3>
+                <div class="description">spot_forest hard_daac_depth_opt_w500</div>
+                <div class="stat rmse">📐 RMSE: 0.4895</div>
+                <div class="stat">📈 Frames: 12742</div>
+                <div class="stat">⏱️ Avg Solver: 24.6ms</div>
+                <div class="stat">📉 Avg Reduction: 1.4%</div>
+                <div class="stat">📏 Avg Depth Factors: 211</div>
+            </div>
+
+            <div class="card">
+                <h3><a href="spot_forest_hard_daac_rgd_inv.html">spot_forest_hard_daac_rgd_inv</a></h3>
+                <div class="description">spot_forest hard_daac_rgd_inv</div>
+                <div class="stat rmse">📐 RMSE: 0.5446</div>
+                <div class="stat">📈 Frames: 12739</div>
+                <div class="stat">⏱️ Avg Solver: 19.4ms</div>
+                <div class="stat">📉 Avg Reduction: 1.4%</div>
+                <div class="stat">📏 Avg Depth Factors: 0</div>
+            </div>
+
+            <div class="card">
+                <h3><a href="spot_forest_hard_daac_rgd_metric.html">spot_forest_hard_daac_rgd_metric</a></h3>
+                <div class="description">spot_forest hard_daac_rgd_metric</div>
+                <div class="stat rmse">📐 RMSE: 0.5594</div>
+                <div class="stat">📈 Frames: 12739</div>
+                <div class="stat">⏱️ Avg Solver: 19.3ms</div>
+                <div class="stat">📉 Avg Reduction: 1.3%</div>
+                <div class="stat">📏 Avg Depth Factors: 0</div>
+            </div>
+
+            <div class="card">
+                <h3><a href="spot_forest_road_1_base.html">spot_forest_road_1_base</a></h3>
+                <div class="description">spot_forest road_1_base</div>
+                <div class="stat rmse">📐 RMSE: 0.6931</div>
+                <div class="stat">📈 Frames: 21879</div>
+                <div class="stat">⏱️ Avg Solver: 22.7ms</div>
+                <div class="stat">📉 Avg Reduction: 1.9%</div>
+                <div class="stat">📏 Avg Depth Factors: 0</div>
+            </div>
+
+            <div class="card">
+                <h3><a href="spot_forest_road_1_daac_depth_opt_log_w100.html">spot_forest_road_1_daac_depth_opt_log_w100</a></h3>
+                <div class="description">spot_forest road_1_daac_depth_opt_log_w100</div>
+                <div class="stat rmse">📐 RMSE: 1.1213</div>
+                <div class="stat">📈 Frames: 21879</div>
+                <div class="stat">⏱️ Avg Solver: 20.1ms</div>
+                <div class="stat">📉 Avg Reduction: 1.1%</div>
+                <div class="stat">📏 Avg Depth Factors: 235</div>
+            </div>
+
+            <div class="card">
+                <h3><a href="spot_forest_road_1_daac_depth_opt_mahalanobis_w100.html">spot_forest_road_1_daac_depth_opt_mahalanobis_w100</a></h3>
+                <div class="description">spot_forest road_1_daac_depth_opt_mahalanobis_w100</div>
+                <div class="stat rmse">📐 RMSE: 0.6633</div>
+                <div class="stat">📈 Frames: 21879</div>
+                <div class="stat">⏱️ Avg Solver: 23.5ms</div>
+                <div class="stat">📉 Avg Reduction: 1.8%</div>
+                <div class="stat">📏 Avg Depth Factors: 259</div>
+            </div>
+
+            <div class="card">
+                <h3><a href="spot_forest_road_1_daac_depth_opt_mahalanobis_w1000.html">spot_forest_road_1_daac_depth_opt_mahalanobis_w1000</a></h3>
+                <div class="description">spot_forest road_1_daac_depth_opt_mahalanobis_w1000</div>
+                <div class="stat rmse">📐 RMSE: 0.7991</div>
+                <div class="stat">📈 Frames: 21879</div>
+                <div class="stat">⏱️ Avg Solver: 25.9ms</div>
+                <div class="stat">📉 Avg Reduction: 1.5%</div>
+                <div class="stat">📏 Avg Depth Factors: 198</div>
+            </div>
+
+            <div class="card">
+                <h3><a href="spot_forest_road_1_daac_depth_opt_mahalanobis_w500.html">spot_forest_road_1_daac_depth_opt_mahalanobis_w500</a></h3>
+                <div class="description">spot_forest road_1_daac_depth_opt_mahalanobis_w500</div>
+                <div class="stat rmse">📐 RMSE: 0.6044</div>
+                <div class="stat">📈 Frames: 21879</div>
+                <div class="stat">⏱️ Avg Solver: 25.5ms</div>
+                <div class="stat">📉 Avg Reduction: 1.7%</div>
+                <div class="stat">📏 Avg Depth Factors: 252</div>
+            </div>
+
+            <div class="card">
+                <h3><a href="spot_forest_road_1_daac_depth_opt_w100.html">spot_forest_road_1_daac_depth_opt_w100</a></h3>
+                <div class="description">spot_forest road_1_daac_depth_opt_w100</div>
+                <div class="stat rmse">📐 RMSE: 0.6201</div>
+                <div class="stat">📈 Frames: 21879</div>
+                <div class="stat">⏱️ Avg Solver: 23.8ms</div>
+                <div class="stat">📉 Avg Reduction: 1.8%</div>
+                <div class="stat">📏 Avg Depth Factors: 259</div>
+            </div>
+
+            <div class="card">
+                <h3><a href="spot_forest_road_1_daac_depth_opt_w1000.html">spot_forest_road_1_daac_depth_opt_w1000</a></h3>
+                <div class="description">spot_forest road_1_daac_depth_opt_w1000</div>
+                <div class="stat rmse">📐 RMSE: 0.8096</div>
+                <div class="stat">📈 Frames: 21879</div>
+                <div class="stat">⏱️ Avg Solver: 24.5ms</div>
+                <div class="stat">📉 Avg Reduction: 1.7%</div>
+                <div class="stat">📏 Avg Depth Factors: 231</div>
+            </div>
+
+            <div class="card">
+                <h3><a href="spot_forest_road_1_daac_depth_opt_w500.html">spot_forest_road_1_daac_depth_opt_w500</a></h3>
+                <div class="description">spot_forest road_1_daac_depth_opt_w500</div>
+                <div class="stat rmse">📐 RMSE: 0.6516</div>
+                <div class="stat">📈 Frames: 21879</div>
+                <div class="stat">⏱️ Avg Solver: 24.9ms</div>
+                <div class="stat">📉 Avg Reduction: 1.7%</div>
+                <div class="stat">📏 Avg Depth Factors: 258</div>
+            </div>
+
+            <div class="card">
+                <h3><a href="spot_forest_road_1_daac_rgd_inv.html">spot_forest_road_1_daac_rgd_inv</a></h3>
+                <div class="description">spot_forest road_1_daac_rgd_inv</div>
+                <div class="stat rmse">📐 RMSE: 0.6888</div>
+                <div class="stat">📈 Frames: 21685</div>
+                <div class="stat">⏱️ Avg Solver: 23.1ms</div>
+                <div class="stat">📉 Avg Reduction: 2.1%</div>
+                <div class="stat">📏 Avg Depth Factors: 0</div>
+            </div>
+
+            <div class="card">
+                <h3><a href="spot_forest_road_1_daac_rgd_metric.html">spot_forest_road_1_daac_rgd_metric</a></h3>
+                <div class="description">spot_forest road_1_daac_rgd_metric</div>
+                <div class="stat rmse">📐 RMSE: 0.6475</div>
+                <div class="stat">📈 Frames: 21879</div>
+                <div class="stat">⏱️ Avg Solver: 23.0ms</div>
+                <div class="stat">📉 Avg Reduction: 2.3%</div>
+                <div class="stat">📏 Avg Depth Factors: 0</div>
+            </div>
+
+            <div class="card">
+                <h3><a href="spot_indoor_building_loop_base.html">spot_indoor_building_loop_base</a></h3>
+                <div class="description">spot_indoor building_loop_base</div>
+                <div class="stat rmse">📐 RMSE: 0.3012</div>
+                <div class="stat">📈 Frames: 12239</div>
+                <div class="stat">⏱️ Avg Solver: 12.5ms</div>
+                <div class="stat">📉 Avg Reduction: 2.9%</div>
+                <div class="stat">📏 Avg Depth Factors: 0</div>
+            </div>
+
+            <div class="card">
+                <h3><a href="spot_indoor_building_loop_daac_depth_opt_log_w100.html">spot_indoor_building_loop_daac_depth_opt_log_w100</a></h3>
+                <div class="description">spot_indoor building_loop_daac_depth_opt_log_w100</div>
+                <div class="stat rmse">📐 RMSE: 0.4593</div>
+                <div class="stat">📈 Frames: 12239</div>
+                <div class="stat">⏱️ Avg Solver: 12.8ms</div>
+                <div class="stat">📉 Avg Reduction: 2.6%</div>
+                <div class="stat">📏 Avg Depth Factors: 160</div>
+            </div>
+
+            <div class="card">
+                <h3><a href="spot_indoor_building_loop_daac_depth_opt_mahalanobis_w100.html">spot_indoor_building_loop_daac_depth_opt_mahalanobis_w100</a></h3>
+                <div class="description">spot_indoor building_loop_daac_depth_opt_mahalanobis_w100</div>
+                <div class="stat rmse">📐 RMSE: 0.2623</div>
+                <div class="stat">📈 Frames: 12239</div>
+                <div class="stat">⏱️ Avg Solver: 13.3ms</div>
+                <div class="stat">📉 Avg Reduction: 3.0%</div>
+                <div class="stat">📏 Avg Depth Factors: 165</div>
+            </div>
+
+            <div class="card">
+                <h3><a href="spot_indoor_building_loop_daac_depth_opt_mahalanobis_w1000.html">spot_indoor_building_loop_daac_depth_opt_mahalanobis_w1000</a></h3>
+                <div class="description">spot_indoor building_loop_daac_depth_opt_mahalanobis_w1000</div>
+                <div class="stat rmse">📐 RMSE: 0.2949</div>
+                <div class="stat">📈 Frames: 12239</div>
+                <div class="stat">⏱️ Avg Solver: 13.3ms</div>
+                <div class="stat">📉 Avg Reduction: 2.5%</div>
+                <div class="stat">📏 Avg Depth Factors: 162</div>
+            </div>
+
+            <div class="card">
+                <h3><a href="spot_indoor_building_loop_daac_depth_opt_mahalanobis_w500.html">spot_indoor_building_loop_daac_depth_opt_mahalanobis_w500</a></h3>
+                <div class="description">spot_indoor building_loop_daac_depth_opt_mahalanobis_w500</div>
+                <div class="stat rmse">📐 RMSE: 0.2812</div>
+                <div class="stat">📈 Frames: 12239</div>
+                <div class="stat">⏱️ Avg Solver: 13.3ms</div>
+                <div class="stat">📉 Avg Reduction: 2.6%</div>
+                <div class="stat">📏 Avg Depth Factors: 163</div>
+            </div>
+
+            <div class="card">
+                <h3><a href="spot_indoor_building_loop_daac_depth_opt_w100.html">spot_indoor_building_loop_daac_depth_opt_w100</a></h3>
+                <div class="description">spot_indoor building_loop_daac_depth_opt_w100</div>
+                <div class="stat rmse">📐 RMSE: 0.2811</div>
+                <div class="stat">📈 Frames: 12239</div>
+                <div class="stat">⏱️ Avg Solver: 13.3ms</div>
+                <div class="stat">📉 Avg Reduction: 2.8%</div>
+                <div class="stat">📏 Avg Depth Factors: 165</div>
+            </div>
+
+            <div class="card">
+                <h3><a href="spot_indoor_building_loop_daac_depth_opt_w1000.html">spot_indoor_building_loop_daac_depth_opt_w1000</a></h3>
+                <div class="description">spot_indoor building_loop_daac_depth_opt_w1000</div>
+                <div class="stat rmse">📐 RMSE: 0.6501</div>
+                <div class="stat">📈 Frames: 12239</div>
+                <div class="stat">⏱️ Avg Solver: 12.6ms</div>
+                <div class="stat">📉 Avg Reduction: 3.0%</div>
+                <div class="stat">📏 Avg Depth Factors: 153</div>
+            </div>
+
+            <div class="card">
+                <h3><a href="spot_indoor_building_loop_daac_depth_opt_w500.html">spot_indoor_building_loop_daac_depth_opt_w500</a></h3>
+                <div class="description">spot_indoor building_loop_daac_depth_opt_w500</div>
+                <div class="stat rmse">📐 RMSE: 0.3147</div>
+                <div class="stat">📈 Frames: 12239</div>
+                <div class="stat">⏱️ Avg Solver: 13.1ms</div>
+                <div class="stat">📉 Avg Reduction: 2.6%</div>
+                <div class="stat">📏 Avg Depth Factors: 162</div>
+            </div>
+
+            <div class="card">
+                <h3><a href="spot_indoor_building_loop_daac_rgd_inv.html">spot_indoor_building_loop_daac_rgd_inv</a></h3>
+                <div class="description">spot_indoor building_loop_daac_rgd_inv</div>
+                <div class="stat rmse">📐 RMSE: 0.2428</div>
+                <div class="stat">📈 Frames: 12239</div>
+                <div class="stat">⏱️ Avg Solver: 12.6ms</div>
+                <div class="stat">📉 Avg Reduction: 3.2%</div>
+                <div class="stat">📏 Avg Depth Factors: 0</div>
+            </div>
+
+            <div class="card">
+                <h3><a href="spot_indoor_building_loop_daac_rgd_metric.html">spot_indoor_building_loop_daac_rgd_metric</a></h3>
+                <div class="description">spot_indoor building_loop_daac_rgd_metric</div>
+                <div class="stat rmse">📐 RMSE: 0.2845</div>
+                <div class="stat">📈 Frames: 12239</div>
+                <div class="stat">⏱️ Avg Solver: 12.7ms</div>
+                <div class="stat">📉 Avg Reduction: 3.1%</div>
+                <div class="stat">📏 Avg Depth Factors: 0</div>
+            </div>
+
+            <div class="card">
+                <h3><a href="spot_indoor_stairs_base.html">spot_indoor_stairs_base</a></h3>
+                <div class="description">spot_indoor stairs_base</div>
+                <div class="stat rmse">📐 RMSE: 10.5087</div>
+                <div class="stat">📈 Frames: 11519</div>
+                <div class="stat">⏱️ Avg Solver: 8.4ms</div>
+                <div class="stat">📉 Avg Reduction: 3.6%</div>
+                <div class="stat">📏 Avg Depth Factors: 0</div>
+            </div>
+
+            <div class="card">
+                <h3><a href="spot_indoor_stairs_daac_depth_opt_log_w100.html">spot_indoor_stairs_daac_depth_opt_log_w100</a></h3>
+                <div class="description">spot_indoor stairs_daac_depth_opt_log_w100</div>
+                <div class="stat rmse">📐 RMSE: 21.9323</div>
+                <div class="stat">📈 Frames: 11519</div>
+                <div class="stat">⏱️ Avg Solver: 5.4ms</div>
+                <div class="stat">📉 Avg Reduction: 24.1%</div>
+                <div class="stat">📏 Avg Depth Factors: 12</div>
+            </div>
+
+            <div class="card">
+                <h3><a href="spot_indoor_stairs_daac_depth_opt_mahalanobis_w100.html">spot_indoor_stairs_daac_depth_opt_mahalanobis_w100</a></h3>
+                <div class="description">spot_indoor stairs_daac_depth_opt_mahalanobis_w100</div>
+                <div class="stat rmse">📐 RMSE: 0.2138</div>
+                <div class="stat">📈 Frames: 11521</div>
+                <div class="stat">⏱️ Avg Solver: 10.3ms</div>
+                <div class="stat">📉 Avg Reduction: 5.5%</div>
+                <div class="stat">📏 Avg Depth Factors: 87</div>
+            </div>
+
+            <div class="card">
+                <h3><a href="spot_indoor_stairs_daac_depth_opt_mahalanobis_w1000.html">spot_indoor_stairs_daac_depth_opt_mahalanobis_w1000</a></h3>
+                <div class="description">spot_indoor stairs_daac_depth_opt_mahalanobis_w1000</div>
+                <div class="stat rmse">📐 RMSE: 14.3768</div>
+                <div class="stat">📈 Frames: 11519</div>
+                <div class="stat">⏱️ Avg Solver: 9.5ms</div>
+                <div class="stat">📉 Avg Reduction: 11.9%</div>
+                <div class="stat">📏 Avg Depth Factors: 64</div>
+            </div>
+
+            <div class="card">
+                <h3><a href="spot_indoor_stairs_daac_depth_opt_mahalanobis_w500.html">spot_indoor_stairs_daac_depth_opt_mahalanobis_w500</a></h3>
+                <div class="description">spot_indoor stairs_daac_depth_opt_mahalanobis_w500</div>
+                <div class="stat rmse">📐 RMSE: 0.1330</div>
+                <div class="stat">📈 Frames: 11520</div>
+                <div class="stat">⏱️ Avg Solver: 10.2ms</div>
+                <div class="stat">📉 Avg Reduction: 8.6%</div>
+                <div class="stat">📏 Avg Depth Factors: 76</div>
+            </div>
+
+            <div class="card">
+                <h3><a href="spot_indoor_stairs_daac_depth_opt_w100.html">spot_indoor_stairs_daac_depth_opt_w100</a></h3>
+                <div class="description">spot_indoor stairs_daac_depth_opt_w100</div>
+                <div class="stat rmse">📐 RMSE: 0.2815</div>
+                <div class="stat">📈 Frames: 11521</div>
+                <div class="stat">⏱️ Avg Solver: 10.5ms</div>
+                <div class="stat">📉 Avg Reduction: 6.7%</div>
+                <div class="stat">📏 Avg Depth Factors: 82</div>
+            </div>
+
+            <div class="card">
+                <h3><a href="spot_indoor_stairs_daac_depth_opt_w1000.html">spot_indoor_stairs_daac_depth_opt_w1000</a></h3>
+                <div class="description">spot_indoor stairs_daac_depth_opt_w1000</div>
+                
+                <div class="stat">📈 Frames: 11519</div>
+                <div class="stat">⏱️ Avg Solver: 6.2ms</div>
+                <div class="stat">📉 Avg Reduction: 33.6%</div>
+                <div class="stat">📏 Avg Depth Factors: 6</div>
+            </div>
+
+            <div class="card">
+                <h3><a href="spot_indoor_stairs_daac_depth_opt_w500.html">spot_indoor_stairs_daac_depth_opt_w500</a></h3>
+                <div class="description">spot_indoor stairs_daac_depth_opt_w500</div>
+                <div class="stat rmse">📐 RMSE: 20.6232</div>
+                <div class="stat">📈 Frames: 11519</div>
+                <div class="stat">⏱️ Avg Solver: 9.2ms</div>
+                <div class="stat">📉 Avg Reduction: 13.5%</div>
+                <div class="stat">📏 Avg Depth Factors: 58</div>
+            </div>
+
+            <div class="card">
+                <h3><a href="spot_indoor_stairs_daac_rgd_inv.html">spot_indoor_stairs_daac_rgd_inv</a></h3>
+                <div class="description">spot_indoor stairs_daac_rgd_inv</div>
+                <div class="stat rmse">📐 RMSE: 0.2493</div>
+                <div class="stat">📈 Frames: 11516</div>
+                <div class="stat">⏱️ Avg Solver: 9.5ms</div>
+                <div class="stat">📉 Avg Reduction: 4.8%</div>
+                <div class="stat">📏 Avg Depth Factors: 0</div>
+            </div>
+
+            <div class="card">
+                <h3><a href="spot_indoor_stairs_daac_rgd_metric.html">spot_indoor_stairs_daac_rgd_metric</a></h3>
+                <div class="description">spot_indoor stairs_daac_rgd_metric</div>
+                <div class="stat rmse">📐 RMSE: 12.5363</div>
+                <div class="stat">📈 Frames: 11519</div>
+                <div class="stat">⏱️ Avg Solver: 9.3ms</div>
+                <div class="stat">📉 Avg Reduction: 5.4%</div>
+                <div class="stat">📏 Avg Depth Factors: 0</div>
+            </div>
+
+            <div class="card">
+                <h3><a href="spot_indoor_stairwell_base.html">spot_indoor_stairwell_base</a></h3>
+                <div class="description">spot_indoor stairwell_base</div>
+                <div class="stat rmse">📐 RMSE: 0.4756</div>
+                <div class="stat">📈 Frames: 17608</div>
+                <div class="stat">⏱️ Avg Solver: 6.3ms</div>
+                <div class="stat">📉 Avg Reduction: 2.2%</div>
+                <div class="stat">📏 Avg Depth Factors: 0</div>
+            </div>
+
+            <div class="card">
+                <h3><a href="spot_indoor_stairwell_daac_depth_opt_log_w100.html">spot_indoor_stairwell_daac_depth_opt_log_w100</a></h3>
+                <div class="description">spot_indoor stairwell_daac_depth_opt_log_w100</div>
+                <div class="stat rmse">📐 RMSE: 0.2257</div>
+                <div class="stat">📈 Frames: 9954</div>
+                <div class="stat">⏱️ Avg Solver: 8.7ms</div>
+                <div class="stat">📉 Avg Reduction: 5.1%</div>
+                <div class="stat">📏 Avg Depth Factors: 73</div>
+            </div>
+
+            <div class="card">
+                <h3><a href="spot_indoor_stairwell_daac_depth_opt_mahalanobis_w100.html">spot_indoor_stairwell_daac_depth_opt_mahalanobis_w100</a></h3>
+                <div class="description">spot_indoor stairwell_daac_depth_opt_mahalanobis_w100</div>
+                <div class="stat rmse">📐 RMSE: 0.4194</div>
+                <div class="stat">📈 Frames: 19921</div>
+                <div class="stat">⏱️ Avg Solver: 9.0ms</div>
+                <div class="stat">📉 Avg Reduction: 3.8%</div>
+                <div class="stat">📏 Avg Depth Factors: 82</div>
+            </div>
+
+            <div class="card">
+                <h3><a href="spot_indoor_stairwell_daac_depth_opt_mahalanobis_w1000.html">spot_indoor_stairwell_daac_depth_opt_mahalanobis_w1000</a></h3>
+                <div class="description">spot_indoor stairwell_daac_depth_opt_mahalanobis_w1000</div>
+                <div class="stat rmse">📐 RMSE: 0.3885</div>
+                <div class="stat">📈 Frames: 9819</div>
+                <div class="stat">⏱️ Avg Solver: 8.9ms</div>
+                <div class="stat">📉 Avg Reduction: 3.0%</div>
+                <div class="stat">📏 Avg Depth Factors: 75</div>
+            </div>
+
+            <div class="card">
+                <h3><a href="spot_indoor_stairwell_daac_depth_opt_mahalanobis_w500.html">spot_indoor_stairwell_daac_depth_opt_mahalanobis_w500</a></h3>
+                <div class="description">spot_indoor stairwell_daac_depth_opt_mahalanobis_w500</div>
+                <div class="stat rmse">📐 RMSE: 0.3386</div>
+                <div class="stat">📈 Frames: 9819</div>
+                <div class="stat">⏱️ Avg Solver: 9.1ms</div>
+                <div class="stat">📉 Avg Reduction: 2.3%</div>
+                <div class="stat">📏 Avg Depth Factors: 77</div>
+            </div>
+
+            <div class="card">
+                <h3><a href="spot_indoor_stairwell_daac_depth_opt_w100.html">spot_indoor_stairwell_daac_depth_opt_w100</a></h3>
+                <div class="description">spot_indoor stairwell_daac_depth_opt_w100</div>
+                <div class="stat rmse">📐 RMSE: 0.3284</div>
+                <div class="stat">📈 Frames: 13669</div>
+                <div class="stat">⏱️ Avg Solver: 12.7ms</div>
+                <div class="stat">📉 Avg Reduction: 2.0%</div>
+                <div class="stat">📏 Avg Depth Factors: 55</div>
+            </div>
+
+            <div class="card">
+                <h3><a href="spot_indoor_stairwell_daac_depth_opt_w1000.html">spot_indoor_stairwell_daac_depth_opt_w1000</a></h3>
+                <div class="description">spot_indoor stairwell_daac_depth_opt_w1000</div>
+                <div class="stat rmse">📐 RMSE: 0.5840</div>
+                <div class="stat">📈 Frames: 9819</div>
+                <div class="stat">⏱️ Avg Solver: 7.7ms</div>
+                <div class="stat">📉 Avg Reduction: 5.4%</div>
+                <div class="stat">📏 Avg Depth Factors: 62</div>
+            </div>
+
+            <div class="card">
+                <h3><a href="spot_indoor_stairwell_daac_depth_opt_w500.html">spot_indoor_stairwell_daac_depth_opt_w500</a></h3>
+                <div class="description">spot_indoor stairwell_daac_depth_opt_w500</div>
+                <div class="stat rmse">📐 RMSE: 0.4129</div>
+                <div class="stat">📈 Frames: 9819</div>
+                <div class="stat">⏱️ Avg Solver: 8.9ms</div>
+                <div class="stat">📉 Avg Reduction: 3.6%</div>
+                <div class="stat">📏 Avg Depth Factors: 71</div>
+            </div>
+
+            <div class="card">
+                <h3><a href="spot_indoor_stairwell_daac_rgd_inv.html">spot_indoor_stairwell_daac_rgd_inv</a></h3>
+                <div class="description">spot_indoor stairwell_daac_rgd_inv</div>
+                <div class="stat rmse">📐 RMSE: 52.6701</div>
+                <div class="stat">📈 Frames: 10249</div>
+                <div class="stat">⏱️ Avg Solver: 4.8ms</div>
+                <div class="stat">📉 Avg Reduction: 11.4%</div>
+                <div class="stat">📏 Avg Depth Factors: 0</div>
+            </div>
+
+            <div class="card">
+                <h3><a href="spot_indoor_stairwell_daac_rgd_metric.html">spot_indoor_stairwell_daac_rgd_metric</a></h3>
+                <div class="description">spot_indoor stairwell_daac_rgd_metric</div>
+                <div class="stat rmse">📐 RMSE: 1.0704</div>
+                <div class="stat">📈 Frames: 9819</div>
+                <div class="stat">⏱️ Avg Solver: 6.2ms</div>
+                <div class="stat">📉 Avg Reduction: 2.7%</div>
+                <div class="stat">📏 Avg Depth Factors: 0</div>
+            </div>
+
+            <div class="card">
+                <h3><a href="spot_outdoor_day_penno_short_loop_base.html">spot_outdoor_day_penno_short_loop_base</a></h3>
+                <div class="description">spot_outdoor day_penno_short_loop_base</div>
+                <div class="stat rmse">📐 RMSE: 0.5138</div>
+                <div class="stat">📈 Frames: 14159</div>
+                <div class="stat">⏱️ Avg Solver: 20.9ms</div>
+                <div class="stat">📉 Avg Reduction: 2.7%</div>
+                <div class="stat">📏 Avg Depth Factors: 0</div>
+            </div>
+
+            <div class="card">
+                <h3><a href="spot_outdoor_day_penno_short_loop_daac_depth_opt_log_w100.html">spot_outdoor_day_penno_short_loop_daac_depth_opt_log_w100</a></h3>
+                <div class="description">spot_outdoor day_penno_short_loop_daac_depth_opt_log_w100</div>
+                <div class="stat rmse">📐 RMSE: 0.9011</div>
+                <div class="stat">📈 Frames: 14159</div>
+                <div class="stat">⏱️ Avg Solver: 17.7ms</div>
+                <div class="stat">📉 Avg Reduction: 1.3%</div>
+                <div class="stat">📏 Avg Depth Factors: 184</div>
+            </div>
+
+            <div class="card">
+                <h3><a href="spot_outdoor_day_penno_short_loop_daac_depth_opt_mahalanobis_w100.html">spot_outdoor_day_penno_short_loop_daac_depth_opt_mahalanobis_w100</a></h3>
+                <div class="description">spot_outdoor day_penno_short_loop_daac_depth_opt_mahalanobis_w100</div>
+                <div class="stat rmse">📐 RMSE: 0.5692</div>
+                <div class="stat">📈 Frames: 14159</div>
+                <div class="stat">⏱️ Avg Solver: 22.3ms</div>
+                <div class="stat">📉 Avg Reduction: 2.4%</div>
+                <div class="stat">📏 Avg Depth Factors: 214</div>
+            </div>
+
+            <div class="card">
+                <h3><a href="spot_outdoor_day_penno_short_loop_daac_depth_opt_mahalanobis_w1000.html">spot_outdoor_day_penno_short_loop_daac_depth_opt_mahalanobis_w1000</a></h3>
+                <div class="description">spot_outdoor day_penno_short_loop_daac_depth_opt_mahalanobis_w1000</div>
+                <div class="stat rmse">📐 RMSE: 0.5852</div>
+                <div class="stat">📈 Frames: 14159</div>
+                <div class="stat">⏱️ Avg Solver: 26.0ms</div>
+                <div class="stat">📉 Avg Reduction: 1.5%</div>
+                <div class="stat">📏 Avg Depth Factors: 215</div>
+            </div>
+
+            <div class="card">
+                <h3><a href="spot_outdoor_day_penno_short_loop_daac_depth_opt_mahalanobis_w500.html">spot_outdoor_day_penno_short_loop_daac_depth_opt_mahalanobis_w500</a></h3>
+                <div class="description">spot_outdoor day_penno_short_loop_daac_depth_opt_mahalanobis_w500</div>
+                <div class="stat rmse">📐 RMSE: 0.4940</div>
+                <div class="stat">📈 Frames: 14159</div>
+                <div class="stat">⏱️ Avg Solver: 24.7ms</div>
+                <div class="stat">📉 Avg Reduction: 1.7%</div>
+                <div class="stat">📏 Avg Depth Factors: 215</div>
+            </div>
+
+            <div class="card">
+                <h3><a href="spot_outdoor_day_penno_short_loop_daac_depth_opt_w100.html">spot_outdoor_day_penno_short_loop_daac_depth_opt_w100</a></h3>
+                <div class="description">spot_outdoor day_penno_short_loop_daac_depth_opt_w100</div>
+                <div class="stat rmse">📐 RMSE: 0.5211</div>
+                <div class="stat">📈 Frames: 14160</div>
+                <div class="stat">⏱️ Avg Solver: 22.9ms</div>
+                <div class="stat">📉 Avg Reduction: 3.2%</div>
+                <div class="stat">📏 Avg Depth Factors: 214</div>
+            </div>
+
+            <div class="card">
+                <h3><a href="spot_outdoor_day_penno_short_loop_daac_depth_opt_w1000.html">spot_outdoor_day_penno_short_loop_daac_depth_opt_w1000</a></h3>
+                <div class="description">spot_outdoor day_penno_short_loop_daac_depth_opt_w1000</div>
+                <div class="stat rmse">📐 RMSE: 0.6554</div>
+                <div class="stat">📈 Frames: 14159</div>
+                <div class="stat">⏱️ Avg Solver: 25.4ms</div>
+                <div class="stat">📉 Avg Reduction: 1.7%</div>
+                <div class="stat">📏 Avg Depth Factors: 211</div>
+            </div>
+
+            <div class="card">
+                <h3><a href="spot_outdoor_day_penno_short_loop_daac_depth_opt_w500.html">spot_outdoor_day_penno_short_loop_daac_depth_opt_w500</a></h3>
+                <div class="description">spot_outdoor day_penno_short_loop_daac_depth_opt_w500</div>
+                <div class="stat rmse">📐 RMSE: 0.5056</div>
+                <div class="stat">📈 Frames: 14165</div>
+                <div class="stat">⏱️ Avg Solver: 24.5ms</div>
+                <div class="stat">📉 Avg Reduction: 1.6%</div>
+                <div class="stat">📏 Avg Depth Factors: 216</div>
+            </div>
+
+            <div class="card">
+                <h3><a href="spot_outdoor_day_penno_short_loop_daac_rgd_inv.html">spot_outdoor_day_penno_short_loop_daac_rgd_inv</a></h3>
+                <div class="description">spot_outdoor day_penno_short_loop_daac_rgd_inv</div>
+                <div class="stat rmse">📐 RMSE: 0.8564</div>
+                <div class="stat">📈 Frames: 14159</div>
+                <div class="stat">⏱️ Avg Solver: 21.1ms</div>
+                <div class="stat">📉 Avg Reduction: 2.8%</div>
+                <div class="stat">📏 Avg Depth Factors: 0</div>
+            </div>
+
+            <div class="card">
+                <h3><a href="spot_outdoor_day_penno_short_loop_daac_rgd_metric.html">spot_outdoor_day_penno_short_loop_daac_rgd_metric</a></h3>
+                <div class="description">spot_outdoor day_penno_short_loop_daac_rgd_metric</div>
+                <div class="stat rmse">📐 RMSE: 0.6900</div>
+                <div class="stat">📈 Frames: 14165</div>
+                <div class="stat">⏱️ Avg Solver: 20.7ms</div>
+                <div class="stat">📉 Avg Reduction: 2.6%</div>
+                <div class="stat">📏 Avg Depth Factors: 0</div>
+            </div>
+
+            <div class="card">
+                <h3><a href="spot_outdoor_day_skatepark_1_base.html">spot_outdoor_day_skatepark_1_base</a></h3>
+                <div class="description">spot_outdoor day_skatepark_1_base</div>
+                <div class="stat rmse">📐 RMSE: 0.1322</div>
+                <div class="stat">📈 Frames: 10958</div>
+                <div class="stat">⏱️ Avg Solver: 14.3ms</div>
+                <div class="stat">📉 Avg Reduction: 4.3%</div>
+                <div class="stat">📏 Avg Depth Factors: 0</div>
+            </div>
+
+            <div class="card">
+                <h3><a href="spot_outdoor_day_skatepark_1_daac_depth_opt_log_w100.html">spot_outdoor_day_skatepark_1_daac_depth_opt_log_w100</a></h3>
+                <div class="description">spot_outdoor day_skatepark_1_daac_depth_opt_log_w100</div>
+                <div class="stat rmse">📐 RMSE: 0.3537</div>
+                <div class="stat">📈 Frames: 10959</div>
+                <div class="stat">⏱️ Avg Solver: 15.6ms</div>
+                <div class="stat">📉 Avg Reduction: 2.1%</div>
+                <div class="stat">📏 Avg Depth Factors: 209</div>
+            </div>
+
+            <div class="card">
+                <h3><a href="spot_outdoor_day_skatepark_1_daac_depth_opt_mahalanobis_w100.html">spot_outdoor_day_skatepark_1_daac_depth_opt_mahalanobis_w100</a></h3>
+                <div class="description">spot_outdoor day_skatepark_1_daac_depth_opt_mahalanobis_w100</div>
+                <div class="stat rmse">📐 RMSE: 0.1451</div>
+                <div class="stat">📈 Frames: 10959</div>
+                <div class="stat">⏱️ Avg Solver: 18.5ms</div>
+                <div class="stat">📉 Avg Reduction: 4.2%</div>
+                <div class="stat">📏 Avg Depth Factors: 233</div>
+            </div>
+
+            <div class="card">
+                <h3><a href="spot_outdoor_day_skatepark_1_daac_depth_opt_mahalanobis_w1000.html">spot_outdoor_day_skatepark_1_daac_depth_opt_mahalanobis_w1000</a></h3>
+                <div class="description">spot_outdoor day_skatepark_1_daac_depth_opt_mahalanobis_w1000</div>
+                <div class="stat rmse">📐 RMSE: 0.1474</div>
+                <div class="stat">📈 Frames: 10958</div>
+                <div class="stat">⏱️ Avg Solver: 24.9ms</div>
+                <div class="stat">📉 Avg Reduction: 3.2%</div>
+                <div class="stat">📏 Avg Depth Factors: 210</div>
+            </div>
+
+            <div class="card">
+                <h3><a href="spot_outdoor_day_skatepark_1_daac_depth_opt_mahalanobis_w500.html">spot_outdoor_day_skatepark_1_daac_depth_opt_mahalanobis_w500</a></h3>
+                <div class="description">spot_outdoor day_skatepark_1_daac_depth_opt_mahalanobis_w500</div>
+                <div class="stat rmse">📐 RMSE: 0.1884</div>
+                <div class="stat">📈 Frames: 10959</div>
+                <div class="stat">⏱️ Avg Solver: 23.8ms</div>
+                <div class="stat">📉 Avg Reduction: 3.4%</div>
+                <div class="stat">📏 Avg Depth Factors: 232</div>
+            </div>
+
+            <div class="card">
+                <h3><a href="spot_outdoor_day_skatepark_1_daac_depth_opt_w100.html">spot_outdoor_day_skatepark_1_daac_depth_opt_w100</a></h3>
+                <div class="description">spot_outdoor day_skatepark_1_daac_depth_opt_w100</div>
+                <div class="stat rmse">📐 RMSE: 0.1548</div>
+                <div class="stat">📈 Frames: 10959</div>
+                <div class="stat">⏱️ Avg Solver: 19.5ms</div>
+                <div class="stat">📉 Avg Reduction: 4.0%</div>
+                <div class="stat">📏 Avg Depth Factors: 233</div>
+            </div>
+
+            <div class="card">
+                <h3><a href="spot_outdoor_day_skatepark_1_daac_depth_opt_w1000.html">spot_outdoor_day_skatepark_1_daac_depth_opt_w1000</a></h3>
+                <div class="description">spot_outdoor day_skatepark_1_daac_depth_opt_w1000</div>
+                <div class="stat rmse">📐 RMSE: 0.1927</div>
+                <div class="stat">📈 Frames: 10958</div>
+                <div class="stat">⏱️ Avg Solver: 25.2ms</div>
+                <div class="stat">📉 Avg Reduction: 3.6%</div>
+                <div class="stat">📏 Avg Depth Factors: 211</div>
+            </div>
+
+            <div class="card">
+                <h3><a href="spot_outdoor_day_skatepark_1_daac_depth_opt_w500.html">spot_outdoor_day_skatepark_1_daac_depth_opt_w500</a></h3>
+                <div class="description">spot_outdoor day_skatepark_1_daac_depth_opt_w500</div>
+                <div class="stat rmse">📐 RMSE: 0.2347</div>
+                <div class="stat">📈 Frames: 10959</div>
+                <div class="stat">⏱️ Avg Solver: 22.6ms</div>
+                <div class="stat">📉 Avg Reduction: 3.2%</div>
+                <div class="stat">📏 Avg Depth Factors: 207</div>
+            </div>
+
+            <div class="card">
+                <h3><a href="spot_outdoor_day_skatepark_1_daac_rgd_inv.html">spot_outdoor_day_skatepark_1_daac_rgd_inv</a></h3>
+                <div class="description">spot_outdoor day_skatepark_1_daac_rgd_inv</div>
+                <div class="stat rmse">📐 RMSE: 0.1413</div>
+                <div class="stat">📈 Frames: 10957</div>
+                <div class="stat">⏱️ Avg Solver: 15.7ms</div>
+                <div class="stat">📉 Avg Reduction: 4.4%</div>
+                <div class="stat">📏 Avg Depth Factors: 0</div>
+            </div>
+
+            <div class="card">
+                <h3><a href="spot_outdoor_day_skatepark_1_daac_rgd_metric.html">spot_outdoor_day_skatepark_1_daac_rgd_metric</a></h3>
+                <div class="description">spot_outdoor day_skatepark_1_daac_rgd_metric</div>
+                <div class="stat rmse">📐 RMSE: 0.1395</div>
+                <div class="stat">📈 Frames: 10958</div>
+                <div class="stat">⏱️ Avg Solver: 15.3ms</div>
+                <div class="stat">📉 Avg Reduction: 4.9%</div>
+                <div class="stat">📏 Avg Depth Factors: 0</div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>📋 Detailed Statistics</h2>
+        <p style="color: #666; margin-bottom: 20px;">Comprehensive statistics for all datasets. Cost values are medians (robust to outliers), reductions are averages.</p>
+        <div style="overflow-x: auto;">
+            <table class="detailed-stats">
+                <thead>
+                    <tr>
+                        <th>Dataset</th>
+                        <th>Frames</th>
+                        <th>Solver (ms)</th>
+                        <th>Iterations</th>
+                        <th>Total Init</th>
+                        <th>Total Final</th>
+                        <th>Total Red %</th>
+                        <th>Visual Init</th>
+                        <th>Visual Final</th>
+                        <th>Visual Red %</th>
+                        <th>IMU Init</th>
+                        <th>IMU Final</th>
+                        <th>Depth Factors</th>
+                        <th>Features</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><a href="spot_forest_hard_base.html">spot_forest_hard_base</a></td>
+                        <td>12739</td>
+                        <td>19.2</td>
+                        <td>4.4</td>
+                        <td>6.49e+04</td>
+                        <td>6.37e+04</td>
+                        <td>1.3%</td>
+                        <td>5.84e+02</td>
+                        <td>4.35e+02</td>
+                        <td>25.7%</td>
+                        <td>3.05e+02</td>
+                        <td>3.55e+02</td>
+                        <td>0</td>
+                        <td>266</td>
+                    </tr>
+                    <tr>
+                        <td><a href="spot_forest_hard_daac_depth_opt_log_w100.html">spot_forest_hard_daac_depth_opt_log_w100</a></td>
+                        <td>10191</td>
+                        <td>14.1</td>
+                        <td>6.5</td>
+                        <td>4.32e+04</td>
+                        <td>4.30e+04</td>
+                        <td>1.1%</td>
+                        <td>6.67e+02</td>
+                        <td>5.41e+02</td>
+                        <td>12.3%</td>
+                        <td>1.64e+02</td>
+                        <td>1.88e+02</td>
+                        <td>193</td>
+                        <td>214</td>
+                    </tr>
+                    <tr>
+                        <td><a href="spot_forest_hard_daac_depth_opt_mahalanobis_w100.html">spot_forest_hard_daac_depth_opt_mahalanobis_w100</a></td>
+                        <td>12739</td>
+                        <td>21.0</td>
+                        <td>4.8</td>
+                        <td>6.57e+04</td>
+                        <td>6.39e+04</td>
+                        <td>1.3%</td>
+                        <td>5.76e+02</td>
+                        <td>4.32e+02</td>
+                        <td>25.0%</td>
+                        <td>3.08e+02</td>
+                        <td>3.57e+02</td>
+                        <td>241</td>
+                        <td>268</td>
+                    </tr>
+                    <tr>
+                        <td><a href="spot_forest_hard_daac_depth_opt_mahalanobis_w1000.html">spot_forest_hard_daac_depth_opt_mahalanobis_w1000</a></td>
+                        <td>12742</td>
+                        <td>25.2</td>
+                        <td>6.0</td>
+                        <td>6.70e+04</td>
+                        <td>6.56e+04</td>
+                        <td>1.4%</td>
+                        <td>6.07e+02</td>
+                        <td>4.59e+02</td>
+                        <td>24.1%</td>
+                        <td>3.15e+02</td>
+                        <td>3.63e+02</td>
+                        <td>185</td>
+                        <td>269</td>
+                    </tr>
+                    <tr>
+                        <td><a href="spot_forest_hard_daac_depth_opt_mahalanobis_w500.html">spot_forest_hard_daac_depth_opt_mahalanobis_w500</a></td>
+                        <td>12739</td>
+                        <td>24.3</td>
+                        <td>5.7</td>
+                        <td>6.71e+04</td>
+                        <td>6.54e+04</td>
+                        <td>1.2%</td>
+                        <td>5.89e+02</td>
+                        <td>4.45e+02</td>
+                        <td>24.5%</td>
+                        <td>3.14e+02</td>
+                        <td>3.63e+02</td>
+                        <td>217</td>
+                        <td>269</td>
+                    </tr>
+                    <tr>
+                        <td><a href="spot_forest_hard_daac_depth_opt_w100.html">spot_forest_hard_daac_depth_opt_w100</a></td>
+                        <td>12739</td>
+                        <td>21.6</td>
+                        <td>5.0</td>
+                        <td>6.53e+04</td>
+                        <td>6.43e+04</td>
+                        <td>1.3%</td>
+                        <td>5.83e+02</td>
+                        <td>4.36e+02</td>
+                        <td>24.9%</td>
+                        <td>3.12e+02</td>
+                        <td>3.61e+02</td>
+                        <td>242</td>
+                        <td>269</td>
+                    </tr>
+                    <tr>
+                        <td><a href="spot_forest_hard_daac_depth_opt_w1000.html">spot_forest_hard_daac_depth_opt_w1000</a></td>
+                        <td>12739</td>
+                        <td>25.3</td>
+                        <td>6.3</td>
+                        <td>6.69e+04</td>
+                        <td>6.49e+04</td>
+                        <td>1.5%</td>
+                        <td>6.46e+02</td>
+                        <td>4.87e+02</td>
+                        <td>21.9%</td>
+                        <td>3.13e+02</td>
+                        <td>3.63e+02</td>
+                        <td>215</td>
+                        <td>261</td>
+                    </tr>
+                    <tr>
+                        <td><a href="spot_forest_hard_daac_depth_opt_w500.html">spot_forest_hard_daac_depth_opt_w500</a></td>
+                        <td>12742</td>
+                        <td>24.6</td>
+                        <td>5.9</td>
+                        <td>6.66e+04</td>
+                        <td>6.50e+04</td>
+                        <td>1.4%</td>
+                        <td>6.14e+02</td>
+                        <td>4.59e+02</td>
+                        <td>23.9%</td>
+                        <td>3.17e+02</td>
+                        <td>3.69e+02</td>
+                        <td>211</td>
+                        <td>269</td>
+                    </tr>
+                    <tr>
+                        <td><a href="spot_forest_hard_daac_rgd_inv.html">spot_forest_hard_daac_rgd_inv</a></td>
+                        <td>12739</td>
+                        <td>19.4</td>
+                        <td>4.5</td>
+                        <td>6.41e+04</td>
+                        <td>6.28e+04</td>
+                        <td>1.4%</td>
+                        <td>5.80e+02</td>
+                        <td>4.23e+02</td>
+                        <td>26.1%</td>
+                        <td>3.04e+02</td>
+                        <td>3.57e+02</td>
+                        <td>0</td>
+                        <td>266</td>
+                    </tr>
+                    <tr>
+                        <td><a href="spot_forest_hard_daac_rgd_metric.html">spot_forest_hard_daac_rgd_metric</a></td>
+                        <td>12739</td>
+                        <td>19.3</td>
+                        <td>4.4</td>
+                        <td>6.39e+04</td>
+                        <td>6.21e+04</td>
+                        <td>1.3%</td>
+                        <td>5.83e+02</td>
+                        <td>4.33e+02</td>
+                        <td>25.8%</td>
+                        <td>3.01e+02</td>
+                        <td>3.52e+02</td>
+                        <td>0</td>
+                        <td>266</td>
+                    </tr>
+                    <tr>
+                        <td><a href="spot_forest_road_1_base.html">spot_forest_road_1_base</a></td>
+                        <td>21879</td>
+                        <td>22.7</td>
+                        <td>4.7</td>
+                        <td>1.54e+04</td>
+                        <td>1.50e+04</td>
+                        <td>1.9%</td>
+                        <td>3.75e+02</td>
+                        <td>3.26e+02</td>
+                        <td>14.3%</td>
+                        <td>1.39e+02</td>
+                        <td>1.50e+02</td>
+                        <td>0</td>
+                        <td>278</td>
+                    </tr>
+                    <tr>
+                        <td><a href="spot_forest_road_1_daac_depth_opt_log_w100.html">spot_forest_road_1_daac_depth_opt_log_w100</a></td>
+                        <td>21879</td>
+                        <td>20.1</td>
+                        <td>6.1</td>
+                        <td>1.44e+04</td>
+                        <td>1.42e+04</td>
+                        <td>1.1%</td>
+                        <td>4.26e+02</td>
+                        <td>3.75e+02</td>
+                        <td>9.7%</td>
+                        <td>1.07e+02</td>
+                        <td>1.16e+02</td>
+                        <td>235</td>
+                        <td>252</td>
+                    </tr>
+                    <tr>
+                        <td><a href="spot_forest_road_1_daac_depth_opt_mahalanobis_w100.html">spot_forest_road_1_daac_depth_opt_mahalanobis_w100</a></td>
+                        <td>21879</td>
+                        <td>23.5</td>
+                        <td>4.9</td>
+                        <td>1.53e+04</td>
+                        <td>1.50e+04</td>
+                        <td>1.8%</td>
+                        <td>3.75e+02</td>
+                        <td>3.27e+02</td>
+                        <td>13.7%</td>
+                        <td>1.39e+02</td>
+                        <td>1.51e+02</td>
+                        <td>259</td>
+                        <td>279</td>
+                    </tr>
+                    <tr>
+                        <td><a href="spot_forest_road_1_daac_depth_opt_mahalanobis_w1000.html">spot_forest_road_1_daac_depth_opt_mahalanobis_w1000</a></td>
+                        <td>21879</td>
+                        <td>25.9</td>
+                        <td>5.7</td>
+                        <td>1.54e+04</td>
+                        <td>1.51e+04</td>
+                        <td>1.5%</td>
+                        <td>3.97e+02</td>
+                        <td>3.48e+02</td>
+                        <td>13.4%</td>
+                        <td>1.46e+02</td>
+                        <td>1.58e+02</td>
+                        <td>198</td>
+                        <td>279</td>
+                    </tr>
+                    <tr>
+                        <td><a href="spot_forest_road_1_daac_depth_opt_mahalanobis_w500.html">spot_forest_road_1_daac_depth_opt_mahalanobis_w500</a></td>
+                        <td>21879</td>
+                        <td>25.5</td>
+                        <td>5.5</td>
+                        <td>1.47e+04</td>
+                        <td>1.42e+04</td>
+                        <td>1.7%</td>
+                        <td>3.80e+02</td>
+                        <td>3.34e+02</td>
+                        <td>13.6%</td>
+                        <td>1.39e+02</td>
+                        <td>1.50e+02</td>
+                        <td>252</td>
+                        <td>278</td>
+                    </tr>
+                    <tr>
+                        <td><a href="spot_forest_road_1_daac_depth_opt_w100.html">spot_forest_road_1_daac_depth_opt_w100</a></td>
+                        <td>21879</td>
+                        <td>23.8</td>
+                        <td>4.9</td>
+                        <td>1.52e+04</td>
+                        <td>1.49e+04</td>
+                        <td>1.8%</td>
+                        <td>3.75e+02</td>
+                        <td>3.28e+02</td>
+                        <td>13.7%</td>
+                        <td>1.40e+02</td>
+                        <td>1.51e+02</td>
+                        <td>259</td>
+                        <td>279</td>
+                    </tr>
+                    <tr>
+                        <td><a href="spot_forest_road_1_daac_depth_opt_w1000.html">spot_forest_road_1_daac_depth_opt_w1000</a></td>
+                        <td>21879</td>
+                        <td>24.5</td>
+                        <td>5.5</td>
+                        <td>1.61e+04</td>
+                        <td>1.57e+04</td>
+                        <td>1.7%</td>
+                        <td>4.01e+02</td>
+                        <td>3.55e+02</td>
+                        <td>12.4%</td>
+                        <td>1.40e+02</td>
+                        <td>1.53e+02</td>
+                        <td>231</td>
+                        <td>262</td>
+                    </tr>
+                    <tr>
+                        <td><a href="spot_forest_road_1_daac_depth_opt_w500.html">spot_forest_road_1_daac_depth_opt_w500</a></td>
+                        <td>21879</td>
+                        <td>24.9</td>
+                        <td>5.4</td>
+                        <td>1.54e+04</td>
+                        <td>1.51e+04</td>
+                        <td>1.7%</td>
+                        <td>3.83e+02</td>
+                        <td>3.39e+02</td>
+                        <td>13.5%</td>
+                        <td>1.45e+02</td>
+                        <td>1.57e+02</td>
+                        <td>258</td>
+                        <td>278</td>
+                    </tr>
+                    <tr>
+                        <td><a href="spot_forest_road_1_daac_rgd_inv.html">spot_forest_road_1_daac_rgd_inv</a></td>
+                        <td>21685</td>
+                        <td>23.1</td>
+                        <td>4.8</td>
+                        <td>1.57e+04</td>
+                        <td>1.52e+04</td>
+                        <td>2.1%</td>
+                        <td>3.74e+02</td>
+                        <td>3.18e+02</td>
+                        <td>14.7%</td>
+                        <td>1.47e+02</td>
+                        <td>1.64e+02</td>
+                        <td>0</td>
+                        <td>277</td>
+                    </tr>
+                    <tr>
+                        <td><a href="spot_forest_road_1_daac_rgd_metric.html">spot_forest_road_1_daac_rgd_metric</a></td>
+                        <td>21879</td>
+                        <td>23.0</td>
+                        <td>4.8</td>
+                        <td>1.54e+04</td>
+                        <td>1.48e+04</td>
+                        <td>2.3%</td>
+                        <td>3.68e+02</td>
+                        <td>3.15e+02</td>
+                        <td>14.8%</td>
+                        <td>1.33e+02</td>
+                        <td>1.45e+02</td>
+                        <td>0</td>
+                        <td>278</td>
+                    </tr>
+                    <tr>
+                        <td><a href="spot_indoor_building_loop_base.html">spot_indoor_building_loop_base</a></td>
+                        <td>12239</td>
+                        <td>12.5</td>
+                        <td>4.7</td>
+                        <td>2.68e+04</td>
+                        <td>2.64e+04</td>
+                        <td>2.9%</td>
+                        <td>6.96e+02</td>
+                        <td>5.55e+02</td>
+                        <td>24.0%</td>
+                        <td>3.59e+02</td>
+                        <td>4.04e+02</td>
+                        <td>0</td>
+                        <td>174</td>
+                    </tr>
+                    <tr>
+                        <td><a href="spot_indoor_building_loop_daac_depth_opt_log_w100.html">spot_indoor_building_loop_daac_depth_opt_log_w100</a></td>
+                        <td>12239</td>
+                        <td>12.8</td>
+                        <td>4.9</td>
+                        <td>2.57e+04</td>
+                        <td>2.54e+04</td>
+                        <td>2.6%</td>
+                        <td>7.06e+02</td>
+                        <td>5.63e+02</td>
+                        <td>23.3%</td>
+                        <td>3.45e+02</td>
+                        <td>3.89e+02</td>
+                        <td>160</td>
+                        <td>169</td>
+                    </tr>
+                    <tr>
+                        <td><a href="spot_indoor_building_loop_daac_depth_opt_mahalanobis_w100.html">spot_indoor_building_loop_daac_depth_opt_mahalanobis_w100</a></td>
+                        <td>12239</td>
+                        <td>13.3</td>
+                        <td>4.9</td>
+                        <td>2.68e+04</td>
+                        <td>2.63e+04</td>
+                        <td>3.0%</td>
+                        <td>6.96e+02</td>
+                        <td>5.57e+02</td>
+                        <td>23.9%</td>
+                        <td>3.57e+02</td>
+                        <td>4.02e+02</td>
+                        <td>165</td>
+                        <td>174</td>
+                    </tr>
+                    <tr>
+                        <td><a href="spot_indoor_building_loop_daac_depth_opt_mahalanobis_w1000.html">spot_indoor_building_loop_daac_depth_opt_mahalanobis_w1000</a></td>
+                        <td>12239</td>
+                        <td>13.3</td>
+                        <td>4.9</td>
+                        <td>2.63e+04</td>
+                        <td>2.60e+04</td>
+                        <td>2.5%</td>
+                        <td>6.97e+02</td>
+                        <td>5.63e+02</td>
+                        <td>23.5%</td>
+                        <td>3.53e+02</td>
+                        <td>3.95e+02</td>
+                        <td>162</td>
+                        <td>172</td>
+                    </tr>
+                    <tr>
+                        <td><a href="spot_indoor_building_loop_daac_depth_opt_mahalanobis_w500.html">spot_indoor_building_loop_daac_depth_opt_mahalanobis_w500</a></td>
+                        <td>12239</td>
+                        <td>13.3</td>
+                        <td>4.9</td>
+                        <td>2.64e+04</td>
+                        <td>2.60e+04</td>
+                        <td>2.6%</td>
+                        <td>6.96e+02</td>
+                        <td>5.54e+02</td>
+                        <td>23.9%</td>
+                        <td>3.53e+02</td>
+                        <td>3.97e+02</td>
+                        <td>163</td>
+                        <td>173</td>
+                    </tr>
+                    <tr>
+                        <td><a href="spot_indoor_building_loop_daac_depth_opt_w100.html">spot_indoor_building_loop_daac_depth_opt_w100</a></td>
+                        <td>12239</td>
+                        <td>13.3</td>
+                        <td>4.9</td>
+                        <td>2.68e+04</td>
+                        <td>2.64e+04</td>
+                        <td>2.8%</td>
+                        <td>6.94e+02</td>
+                        <td>5.49e+02</td>
+                        <td>23.7%</td>
+                        <td>3.59e+02</td>
+                        <td>4.07e+02</td>
+                        <td>165</td>
+                        <td>174</td>
+                    </tr>
+                    <tr>
+                        <td><a href="spot_indoor_building_loop_daac_depth_opt_w1000.html">spot_indoor_building_loop_daac_depth_opt_w1000</a></td>
+                        <td>12239</td>
+                        <td>12.6</td>
+                        <td>5.0</td>
+                        <td>2.54e+04</td>
+                        <td>2.50e+04</td>
+                        <td>3.0%</td>
+                        <td>6.98e+02</td>
+                        <td>5.62e+02</td>
+                        <td>22.9%</td>
+                        <td>3.31e+02</td>
+                        <td>3.72e+02</td>
+                        <td>153</td>
+                        <td>163</td>
+                    </tr>
+                    <tr>
+                        <td><a href="spot_indoor_building_loop_daac_depth_opt_w500.html">spot_indoor_building_loop_daac_depth_opt_w500</a></td>
+                        <td>12239</td>
+                        <td>13.1</td>
+                        <td>4.9</td>
+                        <td>2.56e+04</td>
+                        <td>2.53e+04</td>
+                        <td>2.6%</td>
+                        <td>7.06e+02</td>
+                        <td>5.62e+02</td>
+                        <td>23.5%</td>
+                        <td>3.55e+02</td>
+                        <td>4.04e+02</td>
+                        <td>162</td>
+                        <td>171</td>
+                    </tr>
+                    <tr>
+                        <td><a href="spot_indoor_building_loop_daac_rgd_inv.html">spot_indoor_building_loop_daac_rgd_inv</a></td>
+                        <td>12239</td>
+                        <td>12.6</td>
+                        <td>4.8</td>
+                        <td>2.60e+04</td>
+                        <td>2.56e+04</td>
+                        <td>3.2%</td>
+                        <td>6.78e+02</td>
+                        <td>5.40e+02</td>
+                        <td>23.3%</td>
+                        <td>3.50e+02</td>
+                        <td>3.96e+02</td>
+                        <td>0</td>
+                        <td>170</td>
+                    </tr>
+                    <tr>
+                        <td><a href="spot_indoor_building_loop_daac_rgd_metric.html">spot_indoor_building_loop_daac_rgd_metric</a></td>
+                        <td>12239</td>
+                        <td>12.7</td>
+                        <td>4.9</td>
+                        <td>2.62e+04</td>
+                        <td>2.58e+04</td>
+                        <td>3.1%</td>
+                        <td>6.93e+02</td>
+                        <td>5.50e+02</td>
+                        <td>23.7%</td>
+                        <td>3.32e+02</td>
+                        <td>3.76e+02</td>
+                        <td>0</td>
+                        <td>170</td>
+                    </tr>
+                    <tr>
+                        <td><a href="spot_indoor_stairs_base.html">spot_indoor_stairs_base</a></td>
+                        <td>11519</td>
+                        <td>8.4</td>
+                        <td>4.7</td>
+                        <td>1.01e+04</td>
+                        <td>9.68e+03</td>
+                        <td>3.6%</td>
+                        <td>2.81e+02</td>
+                        <td>2.16e+02</td>
+                        <td>24.6%</td>
+                        <td>5.29e+01</td>
+                        <td>6.34e+01</td>
+                        <td>0</td>
+                        <td>104</td>
+                    </tr>
+                    <tr>
+                        <td><a href="spot_indoor_stairs_daac_depth_opt_log_w100.html">spot_indoor_stairs_daac_depth_opt_log_w100</a></td>
+                        <td>11519</td>
+                        <td>5.4</td>
+                        <td>6.9</td>
+                        <td>4.85e+03</td>
+                        <td>3.75e+03</td>
+                        <td>24.1%</td>
+                        <td>1.15e+03</td>
+                        <td>2.43e+02</td>
+                        <td>37.7%</td>
+                        <td>8.25e+00</td>
+                        <td>9.83e+00</td>
+                        <td>12</td>
+                        <td>53</td>
+                    </tr>
+                    <tr>
+                        <td><a href="spot_indoor_stairs_daac_depth_opt_mahalanobis_w100.html">spot_indoor_stairs_daac_depth_opt_mahalanobis_w100</a></td>
+                        <td>11521</td>
+                        <td>10.3</td>
+                        <td>6.1</td>
+                        <td>1.03e+04</td>
+                        <td>9.32e+03</td>
+                        <td>5.5%</td>
+                        <td>2.99e+02</td>
+                        <td>2.26e+02</td>
+                        <td>25.8%</td>
+                        <td>4.48e+01</td>
+                        <td>5.50e+01</td>
+                        <td>87</td>
+                        <td>98</td>
+                    </tr>
+                    <tr>
+                        <td><a href="spot_indoor_stairs_daac_depth_opt_mahalanobis_w1000.html">spot_indoor_stairs_daac_depth_opt_mahalanobis_w1000</a></td>
+                        <td>11519</td>
+                        <td>9.5</td>
+                        <td>6.9</td>
+                        <td>7.40e+03</td>
+                        <td>5.99e+03</td>
+                        <td>11.9%</td>
+                        <td>3.55e+02</td>
+                        <td>2.45e+02</td>
+                        <td>31.3%</td>
+                        <td>3.05e+01</td>
+                        <td>3.69e+01</td>
+                        <td>64</td>
+                        <td>82</td>
+                    </tr>
+                    <tr>
+                        <td><a href="spot_indoor_stairs_daac_depth_opt_mahalanobis_w500.html">spot_indoor_stairs_daac_depth_opt_mahalanobis_w500</a></td>
+                        <td>11520</td>
+                        <td>10.2</td>
+                        <td>6.7</td>
+                        <td>8.95e+03</td>
+                        <td>6.93e+03</td>
+                        <td>8.6%</td>
+                        <td>3.16e+02</td>
+                        <td>2.35e+02</td>
+                        <td>28.5%</td>
+                        <td>4.08e+01</td>
+                        <td>4.82e+01</td>
+                        <td>76</td>
+                        <td>92</td>
+                    </tr>
+                    <tr>
+                        <td><a href="spot_indoor_stairs_daac_depth_opt_w100.html">spot_indoor_stairs_daac_depth_opt_w100</a></td>
+                        <td>11521</td>
+                        <td>10.5</td>
+                        <td>6.7</td>
+                        <td>9.31e+03</td>
+                        <td>7.44e+03</td>
+                        <td>6.7%</td>
+                        <td>3.02e+02</td>
+                        <td>2.31e+02</td>
+                        <td>26.7%</td>
+                        <td>4.45e+01</td>
+                        <td>5.24e+01</td>
+                        <td>82</td>
+                        <td>95</td>
+                    </tr>
+                    <tr>
+                        <td><a href="spot_indoor_stairs_daac_depth_opt_w1000.html">spot_indoor_stairs_daac_depth_opt_w1000</a></td>
+                        <td>11519</td>
+                        <td>6.2</td>
+                        <td>6.9</td>
+                        <td>5.64e+03</td>
+                        <td>3.59e+03</td>
+                        <td>33.6%</td>
+                        <td>1.39e+03</td>
+                        <td>2.43e+02</td>
+                        <td>52.1%</td>
+                        <td>1.11e+01</td>
+                        <td>1.31e+01</td>
+                        <td>6</td>
+                        <td>53</td>
+                    </tr>
+                    <tr>
+                        <td><a href="spot_indoor_stairs_daac_depth_opt_w500.html">spot_indoor_stairs_daac_depth_opt_w500</a></td>
+                        <td>11519</td>
+                        <td>9.2</td>
+                        <td>6.9</td>
+                        <td>6.70e+03</td>
+                        <td>5.42e+03</td>
+                        <td>13.5%</td>
+                        <td>3.54e+02</td>
+                        <td>2.44e+02</td>
+                        <td>32.1%</td>
+                        <td>2.69e+01</td>
+                        <td>3.34e+01</td>
+                        <td>58</td>
+                        <td>78</td>
+                    </tr>
+                    <tr>
+                        <td><a href="spot_indoor_stairs_daac_rgd_inv.html">spot_indoor_stairs_daac_rgd_inv</a></td>
+                        <td>11516</td>
+                        <td>9.5</td>
+                        <td>5.8</td>
+                        <td>9.53e+03</td>
+                        <td>8.33e+03</td>
+                        <td>4.8%</td>
+                        <td>2.71e+02</td>
+                        <td>2.14e+02</td>
+                        <td>24.1%</td>
+                        <td>5.18e+01</td>
+                        <td>6.03e+01</td>
+                        <td>0</td>
+                        <td>102</td>
+                    </tr>
+                    <tr>
+                        <td><a href="spot_indoor_stairs_daac_rgd_metric.html">spot_indoor_stairs_daac_rgd_metric</a></td>
+                        <td>11519</td>
+                        <td>9.3</td>
+                        <td>6.0</td>
+                        <td>7.21e+03</td>
+                        <td>6.70e+03</td>
+                        <td>5.4%</td>
+                        <td>2.82e+02</td>
+                        <td>2.17e+02</td>
+                        <td>26.8%</td>
+                        <td>4.27e+01</td>
+                        <td>5.17e+01</td>
+                        <td>0</td>
+                        <td>96</td>
+                    </tr>
+                    <tr>
+                        <td><a href="spot_indoor_stairwell_base.html">spot_indoor_stairwell_base</a></td>
+                        <td>17608</td>
+                        <td>6.3</td>
+                        <td>3.8</td>
+                        <td>8.97e+03</td>
+                        <td>8.88e+03</td>
+                        <td>2.2%</td>
+                        <td>7.82e+01</td>
+                        <td>5.29e+01</td>
+                        <td>29.2%</td>
+                        <td>1.10e+01</td>
+                        <td>1.41e+01</td>
+                        <td>0</td>
+                        <td>79</td>
+                    </tr>
+                    <tr>
+                        <td><a href="spot_indoor_stairwell_daac_depth_opt_log_w100.html">spot_indoor_stairwell_daac_depth_opt_log_w100</a></td>
+                        <td>9954</td>
+                        <td>8.7</td>
+                        <td>6.1</td>
+                        <td>9.15e+03</td>
+                        <td>8.81e+03</td>
+                        <td>5.1%</td>
+                        <td>9.05e+01</td>
+                        <td>6.54e+01</td>
+                        <td>20.2%</td>
+                        <td>1.25e+01</td>
+                        <td>1.63e+01</td>
+                        <td>73</td>
+                        <td>77</td>
+                    </tr>
+                    <tr>
+                        <td><a href="spot_indoor_stairwell_daac_depth_opt_mahalanobis_w100.html">spot_indoor_stairwell_daac_depth_opt_mahalanobis_w100</a></td>
+                        <td>19921</td>
+                        <td>9.0</td>
+                        <td>5.4</td>
+                        <td>9.36e+03</td>
+                        <td>9.06e+03</td>
+                        <td>3.8%</td>
+                        <td>1.90e+02</td>
+                        <td>1.46e+02</td>
+                        <td>26.4%</td>
+                        <td>2.59e+01</td>
+                        <td>3.18e+01</td>
+                        <td>82</td>
+                        <td>89</td>
+                    </tr>
+                    <tr>
+                        <td><a href="spot_indoor_stairwell_daac_depth_opt_mahalanobis_w1000.html">spot_indoor_stairwell_daac_depth_opt_mahalanobis_w1000</a></td>
+                        <td>9819</td>
+                        <td>8.9</td>
+                        <td>5.6</td>
+                        <td>9.07e+03</td>
+                        <td>8.84e+03</td>
+                        <td>3.0%</td>
+                        <td>9.87e+01</td>
+                        <td>7.55e+01</td>
+                        <td>19.5%</td>
+                        <td>1.30e+01</td>
+                        <td>1.69e+01</td>
+                        <td>75</td>
+                        <td>78</td>
+                    </tr>
+                    <tr>
+                        <td><a href="spot_indoor_stairwell_daac_depth_opt_mahalanobis_w500.html">spot_indoor_stairwell_daac_depth_opt_mahalanobis_w500</a></td>
+                        <td>9819</td>
+                        <td>9.1</td>
+                        <td>5.7</td>
+                        <td>9.09e+03</td>
+                        <td>8.95e+03</td>
+                        <td>2.3%</td>
+                        <td>9.02e+01</td>
+                        <td>6.73e+01</td>
+                        <td>20.8%</td>
+                        <td>1.24e+01</td>
+                        <td>1.59e+01</td>
+                        <td>77</td>
+                        <td>80</td>
+                    </tr>
+                    <tr>
+                        <td><a href="spot_indoor_stairwell_daac_depth_opt_w100.html">spot_indoor_stairwell_daac_depth_opt_w100</a></td>
+                        <td>13669</td>
+                        <td>12.7</td>
+                        <td>5.1</td>
+                        <td>1.00e+04</td>
+                        <td>9.94e+03</td>
+                        <td>2.0%</td>
+                        <td>1.75e+02</td>
+                        <td>1.28e+02</td>
+                        <td>19.7%</td>
+                        <td>3.42e+01</td>
+                        <td>3.92e+01</td>
+                        <td>55</td>
+                        <td>136</td>
+                    </tr>
+                    <tr>
+                        <td><a href="spot_indoor_stairwell_daac_depth_opt_w1000.html">spot_indoor_stairwell_daac_depth_opt_w1000</a></td>
+                        <td>9819</td>
+                        <td>7.7</td>
+                        <td>5.7</td>
+                        <td>7.57e+03</td>
+                        <td>7.17e+03</td>
+                        <td>5.4%</td>
+                        <td>9.69e+01</td>
+                        <td>8.51e+01</td>
+                        <td>2.5%</td>
+                        <td>1.05e+01</td>
+                        <td>1.38e+01</td>
+                        <td>62</td>
+                        <td>65</td>
+                    </tr>
+                    <tr>
+                        <td><a href="spot_indoor_stairwell_daac_depth_opt_w500.html">spot_indoor_stairwell_daac_depth_opt_w500</a></td>
+                        <td>9819</td>
+                        <td>8.9</td>
+                        <td>5.9</td>
+                        <td>9.05e+03</td>
+                        <td>8.80e+03</td>
+                        <td>3.6%</td>
+                        <td>9.72e+01</td>
+                        <td>8.11e+01</td>
+                        <td>11.4%</td>
+                        <td>1.17e+01</td>
+                        <td>1.44e+01</td>
+                        <td>71</td>
+                        <td>74</td>
+                    </tr>
+                    <tr>
+                        <td><a href="spot_indoor_stairwell_daac_rgd_inv.html">spot_indoor_stairwell_daac_rgd_inv</a></td>
+                        <td>10249</td>
+                        <td>4.8</td>
+                        <td>4.8</td>
+                        <td>6.16e+03</td>
+                        <td>5.66e+03</td>
+                        <td>11.4%</td>
+                        <td>9.41e+01</td>
+                        <td>3.47e+01</td>
+                        <td>39.3%</td>
+                        <td>5.91e-01</td>
+                        <td>7.30e-01</td>
+                        <td>0</td>
+                        <td>44</td>
+                    </tr>
+                    <tr>
+                        <td><a href="spot_indoor_stairwell_daac_rgd_metric.html">spot_indoor_stairwell_daac_rgd_metric</a></td>
+                        <td>9819</td>
+                        <td>6.2</td>
+                        <td>4.3</td>
+                        <td>9.30e+03</td>
+                        <td>9.20e+03</td>
+                        <td>2.7%</td>
+                        <td>5.40e+01</td>
+                        <td>3.89e+01</td>
+                        <td>27.1%</td>
+                        <td>6.18e+00</td>
+                        <td>8.32e+00</td>
+                        <td>0</td>
+                        <td>70</td>
+                    </tr>
+                    <tr>
+                        <td><a href="spot_outdoor_day_penno_short_loop_base.html">spot_outdoor_day_penno_short_loop_base</a></td>
+                        <td>14159</td>
+                        <td>20.9</td>
+                        <td>4.8</td>
+                        <td>2.13e+04</td>
+                        <td>2.08e+04</td>
+                        <td>2.7%</td>
+                        <td>3.61e+02</td>
+                        <td>2.95e+02</td>
+                        <td>20.7%</td>
+                        <td>2.10e+02</td>
+                        <td>2.33e+02</td>
+                        <td>0</td>
+                        <td>261</td>
+                    </tr>
+                    <tr>
+                        <td><a href="spot_outdoor_day_penno_short_loop_daac_depth_opt_log_w100.html">spot_outdoor_day_penno_short_loop_daac_depth_opt_log_w100</a></td>
+                        <td>14159</td>
+                        <td>17.7</td>
+                        <td>6.7</td>
+                        <td>2.12e+04</td>
+                        <td>2.10e+04</td>
+                        <td>1.3%</td>
+                        <td>4.32e+02</td>
+                        <td>3.72e+02</td>
+                        <td>12.3%</td>
+                        <td>1.36e+02</td>
+                        <td>1.47e+02</td>
+                        <td>184</td>
+                        <td>224</td>
+                    </tr>
+                    <tr>
+                        <td><a href="spot_outdoor_day_penno_short_loop_daac_depth_opt_mahalanobis_w100.html">spot_outdoor_day_penno_short_loop_daac_depth_opt_mahalanobis_w100</a></td>
+                        <td>14159</td>
+                        <td>22.3</td>
+                        <td>5.0</td>
+                        <td>2.12e+04</td>
+                        <td>2.07e+04</td>
+                        <td>2.4%</td>
+                        <td>3.62e+02</td>
+                        <td>2.97e+02</td>
+                        <td>20.1%</td>
+                        <td>2.11e+02</td>
+                        <td>2.34e+02</td>
+                        <td>214</td>
+                        <td>262</td>
+                    </tr>
+                    <tr>
+                        <td><a href="spot_outdoor_day_penno_short_loop_daac_depth_opt_mahalanobis_w1000.html">spot_outdoor_day_penno_short_loop_daac_depth_opt_mahalanobis_w1000</a></td>
+                        <td>14159</td>
+                        <td>26.0</td>
+                        <td>6.2</td>
+                        <td>2.12e+04</td>
+                        <td>2.09e+04</td>
+                        <td>1.5%</td>
+                        <td>3.77e+02</td>
+                        <td>3.15e+02</td>
+                        <td>19.2%</td>
+                        <td>2.06e+02</td>
+                        <td>2.28e+02</td>
+                        <td>215</td>
+                        <td>262</td>
+                    </tr>
+                    <tr>
+                        <td><a href="spot_outdoor_day_penno_short_loop_daac_depth_opt_mahalanobis_w500.html">spot_outdoor_day_penno_short_loop_daac_depth_opt_mahalanobis_w500</a></td>
+                        <td>14159</td>
+                        <td>24.7</td>
+                        <td>5.8</td>
+                        <td>2.11e+04</td>
+                        <td>2.09e+04</td>
+                        <td>1.7%</td>
+                        <td>3.67e+02</td>
+                        <td>3.03e+02</td>
+                        <td>19.7%</td>
+                        <td>2.09e+02</td>
+                        <td>2.29e+02</td>
+                        <td>215</td>
+                        <td>262</td>
+                    </tr>
+                    <tr>
+                        <td><a href="spot_outdoor_day_penno_short_loop_daac_depth_opt_w100.html">spot_outdoor_day_penno_short_loop_daac_depth_opt_w100</a></td>
+                        <td>14160</td>
+                        <td>22.9</td>
+                        <td>5.2</td>
+                        <td>2.26e+04</td>
+                        <td>2.15e+04</td>
+                        <td>3.2%</td>
+                        <td>3.66e+02</td>
+                        <td>3.00e+02</td>
+                        <td>20.0%</td>
+                        <td>2.11e+02</td>
+                        <td>2.34e+02</td>
+                        <td>214</td>
+                        <td>262</td>
+                    </tr>
+                    <tr>
+                        <td><a href="spot_outdoor_day_penno_short_loop_daac_depth_opt_w1000.html">spot_outdoor_day_penno_short_loop_daac_depth_opt_w1000</a></td>
+                        <td>14159</td>
+                        <td>25.4</td>
+                        <td>6.2</td>
+                        <td>2.24e+04</td>
+                        <td>2.15e+04</td>
+                        <td>1.7%</td>
+                        <td>3.90e+02</td>
+                        <td>3.29e+02</td>
+                        <td>18.1%</td>
+                        <td>2.13e+02</td>
+                        <td>2.33e+02</td>
+                        <td>211</td>
+                        <td>260</td>
+                    </tr>
+                    <tr>
+                        <td><a href="spot_outdoor_day_penno_short_loop_daac_depth_opt_w500.html">spot_outdoor_day_penno_short_loop_daac_depth_opt_w500</a></td>
+                        <td>14165</td>
+                        <td>24.5</td>
+                        <td>5.8</td>
+                        <td>2.14e+04</td>
+                        <td>2.08e+04</td>
+                        <td>1.6%</td>
+                        <td>3.70e+02</td>
+                        <td>3.10e+02</td>
+                        <td>19.3%</td>
+                        <td>2.11e+02</td>
+                        <td>2.33e+02</td>
+                        <td>216</td>
+                        <td>263</td>
+                    </tr>
+                    <tr>
+                        <td><a href="spot_outdoor_day_penno_short_loop_daac_rgd_inv.html">spot_outdoor_day_penno_short_loop_daac_rgd_inv</a></td>
+                        <td>14159</td>
+                        <td>21.1</td>
+                        <td>4.7</td>
+                        <td>2.20e+04</td>
+                        <td>2.07e+04</td>
+                        <td>2.8%</td>
+                        <td>3.61e+02</td>
+                        <td>2.95e+02</td>
+                        <td>21.2%</td>
+                        <td>2.15e+02</td>
+                        <td>2.35e+02</td>
+                        <td>0</td>
+                        <td>261</td>
+                    </tr>
+                    <tr>
+                        <td><a href="spot_outdoor_day_penno_short_loop_daac_rgd_metric.html">spot_outdoor_day_penno_short_loop_daac_rgd_metric</a></td>
+                        <td>14165</td>
+                        <td>20.7</td>
+                        <td>4.7</td>
+                        <td>2.12e+04</td>
+                        <td>2.05e+04</td>
+                        <td>2.6%</td>
+                        <td>3.61e+02</td>
+                        <td>2.95e+02</td>
+                        <td>20.8%</td>
+                        <td>2.03e+02</td>
+                        <td>2.25e+02</td>
+                        <td>0</td>
+                        <td>260</td>
+                    </tr>
+                    <tr>
+                        <td><a href="spot_outdoor_day_skatepark_1_base.html">spot_outdoor_day_skatepark_1_base</a></td>
+                        <td>10958</td>
+                        <td>14.3</td>
+                        <td>3.5</td>
+                        <td>1.82e+04</td>
+                        <td>1.73e+04</td>
+                        <td>4.3%</td>
+                        <td>3.32e+02</td>
+                        <td>2.19e+02</td>
+                        <td>27.0%</td>
+                        <td>1.53e+02</td>
+                        <td>1.74e+02</td>
+                        <td>0</td>
+                        <td>241</td>
+                    </tr>
+                    <tr>
+                        <td><a href="spot_outdoor_day_skatepark_1_daac_depth_opt_log_w100.html">spot_outdoor_day_skatepark_1_daac_depth_opt_log_w100</a></td>
+                        <td>10959</td>
+                        <td>15.6</td>
+                        <td>6.9</td>
+                        <td>1.45e+04</td>
+                        <td>1.43e+04</td>
+                        <td>2.1%</td>
+                        <td>5.54e+02</td>
+                        <td>4.19e+02</td>
+                        <td>13.1%</td>
+                        <td>1.14e+02</td>
+                        <td>1.33e+02</td>
+                        <td>209</td>
+                        <td>237</td>
+                    </tr>
+                    <tr>
+                        <td><a href="spot_outdoor_day_skatepark_1_daac_depth_opt_mahalanobis_w100.html">spot_outdoor_day_skatepark_1_daac_depth_opt_mahalanobis_w100</a></td>
+                        <td>10959</td>
+                        <td>18.5</td>
+                        <td>4.3</td>
+                        <td>1.53e+04</td>
+                        <td>1.53e+04</td>
+                        <td>4.2%</td>
+                        <td>3.06e+02</td>
+                        <td>2.05e+02</td>
+                        <td>28.7%</td>
+                        <td>1.74e+02</td>
+                        <td>2.00e+02</td>
+                        <td>233</td>
+                        <td>261</td>
+                    </tr>
+                    <tr>
+                        <td><a href="spot_outdoor_day_skatepark_1_daac_depth_opt_mahalanobis_w1000.html">spot_outdoor_day_skatepark_1_daac_depth_opt_mahalanobis_w1000</a></td>
+                        <td>10958</td>
+                        <td>24.9</td>
+                        <td>6.0</td>
+                        <td>1.59e+04</td>
+                        <td>1.58e+04</td>
+                        <td>3.2%</td>
+                        <td>3.49e+02</td>
+                        <td>2.44e+02</td>
+                        <td>27.3%</td>
+                        <td>1.91e+02</td>
+                        <td>2.25e+02</td>
+                        <td>210</td>
+                        <td>263</td>
+                    </tr>
+                    <tr>
+                        <td><a href="spot_outdoor_day_skatepark_1_daac_depth_opt_mahalanobis_w500.html">spot_outdoor_day_skatepark_1_daac_depth_opt_mahalanobis_w500</a></td>
+                        <td>10959</td>
+                        <td>23.8</td>
+                        <td>5.7</td>
+                        <td>1.55e+04</td>
+                        <td>1.55e+04</td>
+                        <td>3.4%</td>
+                        <td>3.28e+02</td>
+                        <td>2.23e+02</td>
+                        <td>28.0%</td>
+                        <td>1.80e+02</td>
+                        <td>2.10e+02</td>
+                        <td>232</td>
+                        <td>263</td>
+                    </tr>
+                    <tr>
+                        <td><a href="spot_outdoor_day_skatepark_1_daac_depth_opt_w100.html">spot_outdoor_day_skatepark_1_daac_depth_opt_w100</a></td>
+                        <td>10959</td>
+                        <td>19.5</td>
+                        <td>4.6</td>
+                        <td>1.53e+04</td>
+                        <td>1.52e+04</td>
+                        <td>4.0%</td>
+                        <td>3.05e+02</td>
+                        <td>2.07e+02</td>
+                        <td>28.6%</td>
+                        <td>1.77e+02</td>
+                        <td>2.04e+02</td>
+                        <td>233</td>
+                        <td>262</td>
+                    </tr>
+                    <tr>
+                        <td><a href="spot_outdoor_day_skatepark_1_daac_depth_opt_w1000.html">spot_outdoor_day_skatepark_1_daac_depth_opt_w1000</a></td>
+                        <td>10958</td>
+                        <td>25.2</td>
+                        <td>6.1</td>
+                        <td>1.68e+04</td>
+                        <td>1.67e+04</td>
+                        <td>3.6%</td>
+                        <td>3.75e+02</td>
+                        <td>2.82e+02</td>
+                        <td>25.2%</td>
+                        <td>1.98e+02</td>
+                        <td>2.37e+02</td>
+                        <td>211</td>
+                        <td>264</td>
+                    </tr>
+                    <tr>
+                        <td><a href="spot_outdoor_day_skatepark_1_daac_depth_opt_w500.html">spot_outdoor_day_skatepark_1_daac_depth_opt_w500</a></td>
+                        <td>10959</td>
+                        <td>22.6</td>
+                        <td>5.5</td>
+                        <td>1.61e+04</td>
+                        <td>1.60e+04</td>
+                        <td>3.2%</td>
+                        <td>3.56e+02</td>
+                        <td>2.64e+02</td>
+                        <td>24.8%</td>
+                        <td>1.89e+02</td>
+                        <td>2.23e+02</td>
+                        <td>207</td>
+                        <td>250</td>
+                    </tr>
+                    <tr>
+                        <td><a href="spot_outdoor_day_skatepark_1_daac_rgd_inv.html">spot_outdoor_day_skatepark_1_daac_rgd_inv</a></td>
+                        <td>10957</td>
+                        <td>15.7</td>
+                        <td>3.7</td>
+                        <td>1.54e+04</td>
+                        <td>1.52e+04</td>
+                        <td>4.4%</td>
+                        <td>2.94e+02</td>
+                        <td>1.98e+02</td>
+                        <td>29.7%</td>
+                        <td>1.62e+02</td>
+                        <td>1.89e+02</td>
+                        <td>0</td>
+                        <td>256</td>
+                    </tr>
+                    <tr>
+                        <td><a href="spot_outdoor_day_skatepark_1_daac_rgd_metric.html">spot_outdoor_day_skatepark_1_daac_rgd_metric</a></td>
+                        <td>10958</td>
+                        <td>15.3</td>
+                        <td>3.7</td>
+                        <td>1.43e+04</td>
+                        <td>1.42e+04</td>
+                        <td>4.9%</td>
+                        <td>2.97e+02</td>
+                        <td>2.00e+02</td>
+                        <td>30.3%</td>
+                        <td>1.52e+02</td>
+                        <td>1.76e+02</td>
+                        <td>0</td>
+                        <td>253</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+</body>
+</html>
